@@ -9,6 +9,9 @@
 # How many Pokemon manga series were released in English by Viz Media
 # Which generation of games does Pokemon X and Y for the Nintendo 3DS belong to
 
+
+# TODO: Make it use the unigram/bigram PROBABILITIES instead of just weighting everything equally.
+
 import sys
 import re
 
