@@ -3,12 +3,19 @@
 # First, input the filepath of the document, then a space.
 # Second, input the question.
 
-# ####### EXAMPLE QUESTIONS TO TRY !! ##############
-# ex. python answered.py Pokemon.wiki The franchise celebrated its tenth anniversary in what year
-# What is the main staple of the Pokemon video game series
-# How many Pokemon manga series were released in English by Viz Media
-# Which generation of games does Pokemon X and Y for the Nintendo 3DS belong to
+# ####### EXAMPLE QUESTIONS WITH OUTPUTS !! ##############
 
+# ex. python answered.py Pokemon.wiki The franchise celebrated its tenth anniversary in what year
+# 	The franchise celebrated Pokmon Tenth Anniversaryits tenth anniversary in 2006
+
+# What is the main staple of the Pokemon video game series
+# 	The main staple of the Pokmon video game series revolves around the catching and battling of Pokmon
+
+# How many Pokemon manga series were released in Englis
+# There are various Pokmon manga series four of which were released in English by Viz Media and seven of them released in English by Chuang Yi
+
+# Which generation of games does Pokemon X and Y for the Nintendo 3DS belong to
+# 	Officially announced on January 8 2013 and released simultaneously worldwide on October 12 2013 Pokmon X and Y for the Nintendo 3DS are part of the sixth generation of games
 
 # TODO: Make it use the unigram/bigram PROBABILITIES instead of just weighting everything equally.
 
