@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+# ask.py
+#
+# Usage: ./ask article.htm n
+#  article.htm is the HTML file containing the article HTML content
+#  and n is an integer specifying the number of questions to output.
+
+import os
+import re
+import sys
+import subprocess
+
+from nltk.tokenize.punkt import PunktSentenceTokenizer, PunktParameters
+
+from advancedGeneration import generate
+
+if __name__ == "__main__":
+    
+    args = sys.argv[1:]
+    if len(args) < 2:
+        sys.exit(0)
+    n  = int(args[1])
+    article = args[0]
+
+    try:
+        fd = open(article, 'r')
+    except IOError:
+        sys.stderr.write("Could not open %s\n" % (articleFilename))
+
+    text = fd.read()
+
+    text = text.decode('utf-8').replace('?"', '? "').replace('!"', '! "').replace('."', '. "')
+    text = re.sub("<.*?>", "", text)  # removes html tags
+
+    # seperate into individual sentences
+    punkt_param = PunktParameters()
+    punkt_param.abbrev_types = set(['dr', 'vs', 'mr', 'ms', 'mrs', 'prof', 'inc', 'no', 'e.g', 'i.e'])
+    sentence_splitter = PunktSentenceTokenizer(punkt_param)
+
+    sentences = []
+    for para in text.split('\n'):
+        if para:
+            sentences.extend(sentence_splitter.tokenize(para))
+    
+    for i in range(0, len(sentences)):
+        try:
+            print generate(sentences[i])
+        except:
+            continue
