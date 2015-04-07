@@ -1,0 +1,19 @@
+{
+  "name": "11411-WikipediaInformationExtraction",
+  "version": "1.0.0",
+  "description": "A question-answering and question-generating system for 11-411 project",
+  "main": "answer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "author": "Alexis Larry, Brian Xu, Yada Zhai",
+  "dependencies": {
+    "underscore": "*",
+    "node-ner": "*",
+    "pos": "*",
+    "natural": "*",
+    "cheerio": "*",
+    "unidecode": "*"
+  }
+}

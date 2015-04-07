@@ -1,0 +1,11 @@
+# requires java, nodejs, npm, python
+
+# type this to answer questions
+./answer wiki.htm questions.txt
+
+# requires toolbox directory in environment variable:
+set TOOLBOX=$(pwd)/toolbox
+# requires Stanford Core NLP
+#   place in $TOOLBOX/stanford-nlp
+# requires Stanford NER
+#   place in $TOOLBOX/stanford-ner
