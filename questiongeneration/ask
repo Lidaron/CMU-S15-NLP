@@ -46,7 +46,7 @@ if __name__ == "__main__":
         try:
             q = generate(sentences[i])
             if q:
-               print q
+               print ' '.join(q)
                n = n - 1
             if n == 0:
                 break

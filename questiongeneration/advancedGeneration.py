@@ -111,7 +111,7 @@ def generate(word):
 
     st = NERTagger('../stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz',
        '../stanford-ner/stanford-ner.jar')
-   
+
     tokens = nltk.word_tokenize(sentence)
     pos = nltk.pos_tag(tokens)
     ner = st.tag(tokens)

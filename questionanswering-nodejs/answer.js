@@ -13,17 +13,9 @@ if (args.length < 2) {
 
 console.debug("Starting up..."); 
 
-var unidecode = require('unidecode');
-
 var fs = require('fs');
 var path = require('path');
-var natural = require("natural");
-var tokenizer = new natural.TreebankWordTokenizer();
-var pos = require("pos");
 var answering = require('./lib/answering');
-var tagger = new pos.Tagger();
-var node_ner = require("node-ner");
-var ner = new node_ner({ install_path: path.join(process.env.TOOLBOX, "stanford-ner") });
 
 console.debug("------------------------------");
 
@@ -41,36 +33,20 @@ function answerthis(questions, idx) {
 		return;
 	}
 
-	console.log("\n==============================");
+	console.debug("\n==============================");
 
-	console.log("Q: ", input, "(index " + idx + ")");
+	console.debug("Q: ", input, "(index " + idx + ")");
 
-	var context = {};
-	context.tokens = tokenizer.tokenize(input);
-	context.pos = tagger.tag(context.tokens);
-
-	console.debug(context.pos);
-
-	fs.writeFileSync("input.txt", input);
-	ner.fromFile("input.txt", function (entities) {
-		console.debug("Named entities: \n", entities);
-		context.ner = entities;
-
-		console.log("------------------------------");
+	var context = answerer.getContext(input, function (context) {
+		console.debug("------------------------------");
 
 		console.debug("Answer: ");
 
 		answerer.lookup(input, idx, context, function (r) {
 			var text = r.text;
-			var confidence = r.confidence;
 			var rcontext = r.context;
 
-			console.log("Not sure, but here's something that might help: ");
-
-			console.debug("------------------------------");
-
-			console.debug("Evidence:");
-			console.log(text);
+			console.log(r.answer);
 
 			console.debug("------------------------------");
 
@@ -86,60 +62,3 @@ if (questions.length) {
 else {
 	console.debug("No questions were asked.");
 }
-
-/* var node_coref = require("./lib/node-coref");
-var coref = new node_coref({
-	install_path: path.join(process.env.TOOLBOX, "stanford-nlp")
-});
-coref.fromFile("bestSentence.txt", function (res) {
-	console.log(res);
-}); */
-
-
-/* var tokens = tokenizer.tokenize(input);
-var tagged = new pos.Tagger().tag(tokens);
-console.log(tagged);*/
-
-
-/*
-console.log("==================================================");
-console.log("Stanford CoreNLP");
-console.log("==================================================");
-
-var NLP = require('stanford-corenlp');
-var coreNLP = new NLP.StanfordNLP({
-	"nlpPath" : process.env.STANFORD_NLP ? process.env.STANFORD_NLP : "./stanford-nlp",
-	"version" : "3.5.1"
-});
-
-coreNLP.loadPipelineSync();
-coreNLP.process("What? Who is the secretary-general of the awesome United Nations?", function(err, result) {
-	console.log(result.document.sentences);
-});
-*/
-
-/*
-
-coreNLP.loadPipelineSync({
-	annotators: ["tokenize", "ssplit", "pos", "lemma", "ner", "parse"]
-});
-
-coreNLP.process("Who is the secretary-general of the awesome United Nations?", function(err, result) {
-	if (err) {
-		console.log(err);
-		return;
-	}
-
-	var sentences = result.document.sentences.sentence;
-	for (var key in result) {
-		console.log(key);
-	}
-
-	if (!(sentences instanceof Array)) sentences = [ sentences ];
-	for (var i in sentences) {
-		var sentence = sentences[i];
-		console.log(JSON.stringify(sentence, null, '  '));
-	}
-});
-
-*/
